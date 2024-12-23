@@ -1,0 +1,99 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #afcbd6; /* Bagong background color para sa body */
+}
+
+.container {
+    display: flex;
+    height: 100%;
+    background-color: #afcbd6; /* Bagong background color para sa container */
+}
+
+
+.login-form {
+    width: 400px;
+    padding: 40px;
+    background-color: #afc8e9; /* Bagong background color para sa login form */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #afcbd6; /* Bagong border color para sa login form */
+    border-radius: 8px; /* Bagong border radius para sa login form */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bagong box shadow para sa login form */
+}
+
+.logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333333; /* Bagong text color para sa labels */
+    font-size: 14px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #aaaaaa; /* Bagong border color para sa inputs */
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f9f9f9; /* Bagong background color para sa inputs */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #003b7a; /* Bagong background color para sa button */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Bagong box shadow para sa button */
+}
+
+button:hover {
+    background-color: #0056b3; /* Bagong background color para sa button kapag nahohover */
+}
+
+.forgot-password {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #fdfdfd; /* Bagong text color para sa forgot password link */
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline; /* Bagong style para sa forgot password link kapag nahohover */
+}
+.logo-img {
+    width: 160px;
+    height: 58px;
+}
+/* Sidebar */
+.sidebar {
+    width: 180px;
+    background-color: #b6befc;
+    color: white;
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
