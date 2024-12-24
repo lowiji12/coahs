@@ -909,75 +909,130 @@
     @endif
 </head>
 
-<body class="font-sans antialiased dark:bg-white dark:text-black/50">
-    <div class="bg-gray-50 text-black/50 dark:bg-white dark:text-black/50">
-        <div
-            class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-black">
-            <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                    <div class="flex lg:justify-center lg:col-start-2">
-                        <img src="{{ asset('images/coahs-header.png') }}" alt="COAHS Logo" class="h-12 w-auto lg:h-16">
-                    </div>
+<body class="font-sans antialiased "
+    style="background-image: url('{{ asset('images/coahs-background.png') }}'); background-size: cover; background-position: center;">
 
-                    @if (Route::has('login'))
-                        <nav class="-mx-3 flex flex-1 justify-end">
-                            @auth
-                                <a href="{{ url('/dashboard') }}"
+    <div
+        class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-black">
+        <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
+            <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
+                <div class="flex lg:justify-center lg:col-start-2">
+                    <img src="{{ asset('images/coahs-header1.png') }}" alt="COAHS Logo" class="h-12 w-auto lg:h-20">
+                </div>
+
+                @if (Route::has('login'))
+                    <nav class="-mx-3 flex flex-1 justify-end">
+                        @auth
+                            <a href="{{ url('/dashboard') }}"
+                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-white">
+                                Dashboard
+                            </a>
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-white">
+                                Log in
+                            </a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}"
                                     class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-white">
-                                    Dashboard
+                                    Register
                                 </a>
-                            @else
-                                <a href="{{ route('login') }}"
-                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-white">
-                                    Log in
-                                </a>
+                            @endif
+                        @endauth
+                    </nav>
+                @endif
+            </header>
 
-                                <!-- @if (Route::has('register'))
-                                            <a href="{{ route('register') }}"
-                                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-black dark:hover:text-black/80 dark:focus-visible:ring-white">
-                                                Register
-                                            </a>
-                                        @endif -->
-                            @endauth
-                        </nav>
-                    @endif
-                </header>
-
-                <main class="mt-6 container mx-auto">
-    <div class="flex flex-wrap gap-4">
+            <main class="mt-6 container mx-auto px-4">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Left Big Container -->
-        <div class="w-full lg:w-7/12 bg-gray-200 p-6 rounded-md shadow flex flex-col items-center">
-            <!-- Logo in the center -->
-            <img src="{{ asset('images/coahs.png') }}" alt="COAHS Logo" class="h-32 mb-4">
+        <div class="bg-gray-100 p-8 rounded-md shadow-lg flex flex-col items-center text-center">
+            <!-- Logo -->
+            <img src="{{ asset('images/coahs.png') }}" alt="COAHS Logo" class="h-40 mb-6">
 
-            <!-- Mission and Vision -->
-            <div class="text-center">
-                <h2 class="text-xl font-bold mb-2"><strong>Mission</strong></h2>
-                <p class="mb-6">Our mission is to provide excellence in healthcare education...</p>
-
-                <h2 class="text-xl font-bold mb-2">Vision</h2>
-                <p>To be a leading institution in nurturing future healthcare professionals...</p>
+            <!-- Mission, Vision, Goals -->
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-2xl font-bold mb-2">Vision</h2>
+                    <p>RMMC - COAHS envisions to be recognized as a global leader in producing
+                        compassionate, caring, and competent healthcare graduates responsive and
+                        adaptive to the evolving healthcare landscape.</p>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold mb-2">Mission</h2>
+                    <p>RMMC - COAHS is committed to providing high-quality and holistic healthcare
+                        education through research-based programs, collaboration with stakeholders, and
+                        utilization of innovative educational methods to assure the optimum health
+                        conditions in the community and beyond.</p>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold mb-2">Goals</h2>
+                    <p>To provide holistic educational approaches that address the learning needs of
+                        students and support academic quality and integrity.</p>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold mb-2">Objectives</h2>
+                    <ul class="text-left list-disc pl-6">
+                        <li>Attain excellence and leadership in instruction of the allied health
+                            professions responsive to evolving needs of the healthcare system.</li>
+                        <li>Create a learning environment where students expand their knowledge, skills,
+                            and attitude through evidence-based practice and research.</li>
+                        <li>Develop passion and strengthen community extension services.</li>
+                        <li>Improve optimal utilization of available resources geared toward
+                            self-reliance.</li>
+                        <li>Produce graduates who are caring, morally upright, and professionally
+                            competent.</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <!-- Right Column with 3 Containers -->
-        <div class="w-full lg:w-4/12 flex flex-col gap-4">
-            <!-- Top Container -->
-            <div class="bg-gray-200 p-4 rounded-md shadow flex items-center">
-                <img src="{{ asset('images/coahs1.png') }}" alt="COAHS Logo" class="h-8 mr-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada lacus vitae lectus facilisis...</p>
+        <div class="space-y-6">
+            <!-- Program 1 -->
+            <div class="bg-gray-100 p-6 rounded-md shadow-lg flex flex-col md:flex-row items-center md:items-start text-center md:text-left">
+                <img src="{{ asset('images/BSM.png') }}" alt="BS Midwifery" class="h-32 w-32 object-cover mb-4 md:mb-0 md:mr-6 rounded-md">
+                <div>
+                    <h2 class="text-xl font-bold mb-2">BS in Midwifery</h2>
+                    <p><strong>Vision:</strong> The BS Midwifery program aims to produce clinically and
+                        culturally competent midwives.</p>
+                    <p><strong>Mission:</strong> The COAHS - BSM program is committed to excellence in
+                        midwifery education, emphasizing the importance of both technical skills and
+                        compassionate care in serving women and families.</p>
+                </div>
             </div>
 
-            <!-- Middle Container -->
-            <div class="bg-gray-200 p-4 rounded-md shadow flex items-center">
-                <img src="{{ asset('images/coahs2.png') }}" alt="COAHS Logo" class="h-8 mr-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum nunc quis erat convallis...</p>
+            <!-- Program 2 -->
+            <div class="bg-gray-100 p-6 rounded-md shadow-lg flex flex-col md:flex-row items-center md:items-start text-center md:text-left">
+                <img src="{{ asset('images/BSN.png') }}" alt="BS Nursing" class="h-32 w-32 object-cover mb-4 md:mb-0 md:mr-6 rounded-md">
+                <div>
+                    <h2 class="text-xl font-bold mb-2">BS in Nursing</h2>
+                    <p><strong>Vision:</strong> The BS Nursing department envisions being a leading
+                        program recognized for its innovations and excellence in educational approaches
+                        that prepare graduates to advance quality health care.</p>
+                    <p><strong>Mission:</strong> The BS Nursing program is dedicated to excellence in
+                        nursing education that provides holistic programs to transform individuals into
+                        globally competitive leaders and champions imbued with the love of God,
+                        integrity, patriotism, values of service, compassion, and excellence to clients
+                        across the lifespan.</p>
+                </div>
             </div>
 
-            <!-- Bottom Container -->
-            <div class="bg-gray-200 p-4 rounded-md shadow flex items-center">
-                <img src="{{ asset('images/coahs3.png') }}" alt="COAHS Logo" class="h-8 mr-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur varius nisl sit amet odio...</p>
+            <!-- Program 3 -->
+            <div class="bg-gray-100 p-6 rounded-md shadow-lg flex flex-col md:flex-row items-center md:items-start text-center md:text-left">
+                <img src="{{ asset('images/BSP.png') }}" alt="BS Pharmacy" class="h-32 w-32 object-cover mb-4 md:mb-0 md:mr-6 rounded-md">
+                <div>
+                    <h2 class="text-xl font-bold mb-2">BS in Pharmacy</h2>
+                    <p><strong>Vision:</strong> The BS Pharmacy program envisions to be a recognized
+                        leader in pharmacy education and practice, fostering innovation and excellence
+                        in pharmaceutical care and research that enhances health outcomes in
+                        communities.</p>
+                    <p><strong>Mission:</strong> To prepare qualified, competent, and professional
+                        pharmacists who can compete effectively in the pharmaceutical industry, produce
+                        competitive scientific research, and contribute to improving healthcare quality
+                        and outcomes.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -985,10 +1040,9 @@
 
 
 
-                <footer class="py-16 text-center text-sm text-black dark:text-black/70">
-                    This system was developed by Group 3.
-                </footer>
-            </div>
+            <footer class="py-16 text-center text-sm text-black dark:text-black/70">
+                This system was developed by Lowie Jay Orillo | Price Erickson Sañado | Arthe Loie Singcol
+            </footer>
         </div>
     </div>
 </body>

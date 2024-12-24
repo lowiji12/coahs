@@ -9,23 +9,36 @@
         <div class="button-container">
             <a href="{{ route('sis.student.information') }}" class="back-button">Back</a>
             <button class="apply-button" onclick="applyChanges()">Apply</button>
-            <a href="{{ route('admin.student.diagnostic_test_results', $student->student_number) }}" class="next-button">Next</a>
+            <a href="{{ route('admin.student.diagnostic_test_results', $student->student_number) }}"
+                class="next-button">Next</a>
         </div>
     </div>
 
     <p class="privacy-notice">
-        The Office of Planning Management and Council complies to protect each student's personal privacy in compliance with Data Privacy Act of 2012 while ensuring its ability to fully carry out its responsibilities. It is understood that you agree to share your personal information by continuing to fill-up this form.
+        The Office of Planning Management and Council complies to protect each student's personal privacy in compliance
+        with Data Privacy Act of 2012 while ensuring its ability to fully carry out its responsibilities. It is
+        understood that you agree to share your personal information by continuing to fill-up this form.
     </p>
 
     <h2 class="section-title">Personal Information</h2>
 
     <div class="avatar-container">
         <div class="avatar-placeholder">
-            <img src="{{ $imageExists
-                            ? 'http://203.177.208.99/images/spix/'.$student->student_number.'.Png'
-                            : asset('storage/logo/coahs.png') }}"
-                 alt="Student Photo">
+            @php
+                $currentHour = date('H'); // Get the current hour in 24-hour format
+                $currentMinute = date('i'); // Get the current minute
+
+                // Check if the time is between 10:30 PM (22:30) and 6:30 AM (06:30)
+                $isNightTime = ($currentHour >= 22 && $currentMinute >= 30) || ($currentHour >= 23 || $currentHour < 6) || ($currentHour == 6 && $currentMinute <= 30);
+            @endphp
+
+            <img src="{{ $isNightTime
+    ? asset('images/coahs.png')
+    : ($imageExists
+        ? 'http://203.177.208.99/images/spix/' . $student->student_number . '.Png'
+        : asset('images/coahs.png')) }}" alt="Student Photo">
         </div>
+
     </div>
 
     <form id="studentForm">
@@ -65,7 +78,9 @@
                 <div class="form-group">
                     <label>Birth Date:</label>
                     <div class="birth-date-group">
-                        <input type="text" value="{{ $student->birth_date ? \Carbon\Carbon::parse($student->birth_date)->format('F j, Y') : 'N/A' }}" readonly>
+                        <input type="text"
+                            value="{{ $student->birth_date ? \Carbon\Carbon::parse($student->birth_date)->format('F j, Y') : 'N/A' }}"
+                            readonly>
                     </div>
                 </div>
 
@@ -85,7 +100,8 @@
                     <label>Gender:</label>
                     <div class="radio-group">
                         <div class="radio-option">
-                            <input type="radio" id="male" name="gender" {{ $student->gender == 'Male' ? 'checked' : '' }} disabled>
+                            <input type="radio" id="male" name="gender" {{ $student->gender == 'Male' ? 'checked' : '' }}
+                                disabled>
                             <label for="male">Male</label>
                         </div>
                         <div class="radio-option">
@@ -132,7 +148,9 @@
 
                 <div class="form-group">
                     <label for="program">Program:</label>
-                    <input type="text" id="program" value="{{ $student->program == 'BSP' ? 'Bachelor of Science in Pharmacy' : ($student->program == 'BSN' ? 'Bachelor of Science in Nursing' : ($student->program == 'BSW' ? 'Bachelor of Science in Midwifery' : 'N/A')) }}" readonly>
+                    <input type="text" id="program"
+                        value="{{ $student->program == 'BSP' ? 'Bachelor of Science in Pharmacy' : ($student->program == 'BSN' ? 'Bachelor of Science in Nursing' : ($student->program == 'BSW' ? 'Bachelor of Science in Midwifery' : 'N/A')) }}"
+                        readonly>
                 </div>
 
                 <div class="form-group">
@@ -165,7 +183,9 @@
 
                 <div class="form-group">
                     <label for="phoneNumber1">Phone Number 1:</label>
-                    <input type="text" id="phoneNumber1" value="{{ $student->contact_number ? (Str::startsWith($student->contact_number, '+63') ? '0' . substr($student->contact_number, 3) : (Str::startsWith($student->contact_number, '9') ? '0' . $student->contact_number : $student->contact_number)) : 'N/A' }}" readonly>
+                    <input type="text" id="phoneNumber1"
+                        value="{{ $student->contact_number ? (Str::startsWith($student->contact_number, '+63') ? '0' . substr($student->contact_number, 3) : (Str::startsWith($student->contact_number, '9') ? '0' . $student->contact_number : $student->contact_number)) : 'N/A' }}"
+                        readonly>
                 </div>
             </div>
 
@@ -186,22 +206,26 @@
                 <h3>Parent</h3>
                 <div class="form-group">
                     <label for="parentFullName">Full Name:</label>
-                    <input type="text" id="parentFullName" value="{{ $parentGuardianData->parent_fullname ?? 'N/A' }}" readonly>
+                    <input type="text" id="parentFullName" value="{{ $parentGuardianData->parent_fullname ?? 'N/A' }}"
+                        readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="parentAddress">Address:</label>
-                    <input type="text" id="parentAddress" value="{{ $parentGuardianData->parent_address ?? 'N/A' }}" readonly>
+                    <input type="text" id="parentAddress" value="{{ $parentGuardianData->parent_address ?? 'N/A' }}"
+                        readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="parentContactNo">Contact No.:</label>
-                    <input type="text" id="parentContactNo" value="{{ $parentGuardianData->parent_contact_number ?? 'N/A' }}" readonly>
+                    <input type="text" id="parentContactNo"
+                        value="{{ $parentGuardianData->parent_contact_number ?? 'N/A' }}" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="parentRelationship">Relationship:</label>
-                    <input type="text" id="parentRelationship" value="{{ $parentGuardianData->parent_relationship ?? 'N/A' }}" readonly>
+                    <input type="text" id="parentRelationship"
+                        value="{{ $parentGuardianData->parent_relationship ?? 'N/A' }}" readonly>
                 </div>
             </div>
 
@@ -209,22 +233,26 @@
                 <h3>Guardian</h3>
                 <div class="form-group">
                     <label for="guardianFullName">Full Name:</label>
-                    <input type="text" id="guardianFullName" value="{{ $parentGuardianData->guardian_fullname ?? 'N/A' }}" readonly>
+                    <input type="text" id="guardianFullName"
+                        value="{{ $parentGuardianData->guardian_fullname ?? 'N/A' }}" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="guardianAddress">Address:</label>
-                    <input type="text" id="guardianAddress" value="{{ $parentGuardianData->guardian_address ?? 'N/A' }}" readonly>
+                    <input type="text" id="guardianAddress" value="{{ $parentGuardianData->guardian_address ?? 'N/A' }}"
+                        readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="guardianContactNo">Contact No.:</label>
-                    <input type="text" id="guardianContactNo" value="{{ $parentGuardianData->guardian_contact_number ?? 'N/A' }}" readonly>
+                    <input type="text" id="guardianContactNo"
+                        value="{{ $parentGuardianData->guardian_contact_number ?? 'N/A' }}" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="guardianRelationship">Relationship:</label>
-                    <input type="text" id="guardianRelationship" value="{{ $parentGuardianData->guardian_relationship ?? 'N/A' }}" readonly>
+                    <input type="text" id="guardianRelationship"
+                        value="{{ $parentGuardianData->guardian_relationship ?? 'N/A' }}" readonly>
                 </div>
 
                 <div class="form-group">
@@ -257,70 +285,83 @@
 
                 <div class="clinical-form-group">
                     <label for="congenitalDiseases">Congenital (Inborn) Diseases/Disabilities (if any):</label>
-                    <input type="text" id="congenitalDiseases" value="{{ $clinicalBasalData->disabilities ?? 'None' }}" readonly>
+                    <input type="text" id="congenitalDiseases" value="{{ $clinicalBasalData->disabilities ?? 'None' }}"
+                        readonly>
                 </div>
 
                 <div class="clinical-form-group">
                     <label for="dateDiagnosed">Date Diagnosed:</label>
-                    <input type="text" id="dateDiagnosed" value="{{ $clinicalBasalData->date_diagnosed ?? 'None' }}" readonly>
+                    <input type="text" id="dateDiagnosed" value="{{ $clinicalBasalData->date_diagnosed ?? 'None' }}"
+                        readonly>
                 </div>
 
                 <div class="clinical-form-group">
                     <label for="medication1">Medication (Emergency/Maintenance) & Indication(s) (if any):</label>
-                    <input type="text" id="medication1" value="{{ $clinicalBasalData->medication1 ?? 'None' }}" readonly>
+                    <input type="text" id="medication1" value="{{ $clinicalBasalData->medication1 ?? 'None' }}"
+                        readonly>
                 </div>
 
                 <div class="clinical-form-group">
                     <label for="medication2">Medication (Emergency/Maintenance) & Indication(s) (if any):</label>
-                    <input type="text" id="medication2" value="{{ $clinicalBasalData->medication2 ?? 'None' }}" readonly>
+                    <input type="text" id="medication2" value="{{ $clinicalBasalData->medication2 ?? 'None' }}"
+                        readonly>
                 </div>
             </div>
 
             <div class="clinical-form-right">
                 <div class="clinical-form-group">
-                    <label for="previousHospitalization1">Previous Hospitalization Due to Illness/Surgical Operation (if any):</label>
-                    <input type="text" id="previousHospitalization1" value="{{ $clinicalBasalData->hdi1 ?? 'None' }}" readonly>
+                    <label for="previousHospitalization1">Previous Hospitalization Due to Illness/Surgical Operation (if
+                        any):</label>
+                    <input type="text" id="previousHospitalization1" value="{{ $clinicalBasalData->hdi1 ?? 'None' }}"
+                        readonly>
                 </div>
 
                 <div class="clinical-form-group">
                     <label for="previousHospitalizationDate1">Date:</label>
-                    <input type="text" id="previousHospitalizationDate1" value="{{ $clinicalBasalData->hdi1_date ?? 'None' }}" readonly>
+                    <input type="text" id="previousHospitalizationDate1"
+                        value="{{ $clinicalBasalData->hdi1_date ?? 'None' }}" readonly>
                 </div>
 
                 <div class="clinical-form-group">
-                    <label for="previousHospitalization2">Previous Hospitalization Due to Illness/Surgical Operation (if any):</label>
-                    <input type="text" id="previousHospitalization2" value="{{ $clinicalBasalData->hdi2 ?? 'None' }}" readonly>
+                    <label for="previousHospitalization2">Previous Hospitalization Due to Illness/Surgical Operation (if
+                        any):</label>
+                    <input type="text" id="previousHospitalization2" value="{{ $clinicalBasalData->hdi2 ?? 'None' }}"
+                        readonly>
                 </div>
 
                 <div class="clinical-form-group">
                     <label for="previousHospitalizationDate2">Date:</label>
-                    <input type="text" id="previousHospitalizationDate2" value="{{ $clinicalBasalData->hdi2_date ?? 'None' }}" readonly>
+                    <input type="text" id="previousHospitalizationDate2"
+                        value="{{ $clinicalBasalData->hdi2_date ?? 'None' }}" readonly>
                 </div>
 
                 <div class="clinical-form-group">
                     <label for="allergiesMedicine">Allergies (if any) - Medicine:</label>
-                    <input type="text" id="allergiesMedicine" value="{{ $clinicalBasalData->allergy_med ?? 'None' }}" readonly>
+                    <input type="text" id="allergiesMedicine" value="{{ $clinicalBasalData->allergy_med ?? 'None' }}"
+                        readonly>
                 </div>
 
                 <div class="clinical-form-group">
                     <label for="allergiesFood">Food:</label>
-                    <input type="text" id="allergiesFood" value="{{ $clinicalBasalData->allergy_food ?? 'None' }}" readonly>
+                    <input type="text" id="allergiesFood" value="{{ $clinicalBasalData->allergy_food ?? 'None' }}"
+                        readonly>
                 </div>
 
                 <div class="clinical-form-group">
                     <label for="allergiesOthers">Others:</label>
-                    <input type="text" id="allergiesOthers" value="{{ $clinicalBasalData->allergy_others ?? 'None' }}" readonly>
+                    <input type="text" id="allergiesOthers" value="{{ $clinicalBasalData->allergy_others ?? 'None' }}"
+                        readonly>
                 </div>
             </div>
         </div>
     </form>
 
     <script>
-function applyChanges() {
-    const form = document.getElementById('studentForm');
-    form.action = "{{ route('update.student.yearlevel', $student->student_number) }}";
-    form.method = "POST";
-    form.submit();
-}
+        function applyChanges() {
+            const form = document.getElementById('studentForm');
+            form.action = "{{ route('update.student.yearlevel', $student->student_number) }}";
+            form.method = "POST";
+            form.submit();
+        }
     </script>
-@endsection
+    @endsection
