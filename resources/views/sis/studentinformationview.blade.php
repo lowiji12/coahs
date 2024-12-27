@@ -19,7 +19,10 @@
         with Data Privacy Act of 2012 while ensuring its ability to fully carry out its responsibilities. It is
         understood that you agree to share your personal information by continuing to fill-up this form.
     </p>
+    <div class="container mx-auto py-6">
 
+<div class="flex justify-between items-center mb-4">
+    <div class="flex items-center">
     <h2 class="section-title">Personal Information</h2>
 
     <div class="avatar-container">
@@ -165,6 +168,9 @@
             </div>
         </div>
     </form>
+    </div>
+    </div>
+    </div>
 
     <h2 class="section-title">Contact Information</h2>
 
