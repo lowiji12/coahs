@@ -8,49 +8,93 @@ use App\Models\Equipment;
 
 class EquipmentController extends Controller
 {
-    public function index()
+    // Show all equipment records with search functionality
+    public function index(Request $request)
     {
-        $equipments = Equipment::all();
-        return view('admin.Equipments.inventory-equipment', compact('equipments'));
+        $query = Equipment::query();
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('location', 'LIKE', "%{$search}%"); 
+        }
+
+        $equipment = $query->get();
+
+        return view('admin.equipment.index', compact('equipment'));
     }
 
+    // Show form to create new equipment
     public function create()
     {
-        return view('admin.Equipments.create');
+        return view('admin.equipment.create');
     }
 
+    // Store new equipment record
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'location' => 'required',
-            'quantity' => 'required|integer',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string',
+        'location' => 'required|string',
+        'quantity' => 'required|integer|min:1',
+        'expire_date' => 'required|date',
+    ]);
 
-        Equipment::create($request->all());
-        return redirect()->route('admin.equipments.index')->with('success', 'Equipment created successfully.');
+    // Check if the equipment with the same name, location, and expire_date already exists
+    $existingEquipment = Equipment::where('name', $request->name)
+                                   ->where('location', $request->location)
+                                   ->where('expire_date', $request->expire_date)
+                                   ->first();
+
+    if ($existingEquipment) {
+        // If it exists, update the quantity
+        $existingEquipment->quantity += $request->quantity;
+        $existingEquipment->save();
+
+        return redirect()->route('admin.equipment.index')->with('success', 'Equipment quantity updated successfully!');
     }
 
-    public function edit(Equipment $equipment)
+    // If it does not exist, create a new equipment record
+    Equipment::create($request->only(['name', 'location', 'quantity', 'expire_date']));
+
+    // Add a flash message for success
+    session()->flash('success', 'Equipment added successfully!');
+
+    return redirect()->route('admin.equipment.index');
+}
+
+
+
+
+    // Show form to edit equipment
+    public function edit($id)
     {
-        return view('admin.Equipments.edit', compact('equipment'));
+        $equipment = Equipment::findOrFail($id);
+        return view('admin.equipment.edit', compact('equipment'));
     }
 
-    public function update(Request $request, Equipment $equipment)
+    // Update equipment record
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'location' => 'required',
-            'quantity' => 'required|integer',
+            'name' => 'required|string',
+            'location' => 'required|string',
+            'quantity' => 'required|integer|min:1',
+            'expire_date' => 'required|date',
         ]);
 
+        $equipment = Equipment::findOrFail($id);
         $equipment->update($request->all());
-        return redirect()->route('admin.equipments.index')->with('success', 'Equipment updated successfully.');
+
+        return redirect()->route('admin.equipment.index')->with('success', 'Equipment updated successfully!');
     }
 
-    public function destroy(Equipment $equipment)
+    // Delete equipment record
+    public function destroy($id)
     {
+        $equipment = Equipment::findOrFail($id);
         $equipment->delete();
-        return redirect()->route('admin.equipments.index')->with('success', 'Equipment deleted successfully.');
+
+        return redirect()->route('admin.equipment.index')->with('success', 'Equipment deleted successfully!');
     }
 }

@@ -4,21 +4,22 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstrumentsTable extends Migration
+class CreateEquipmentTable extends Migration
 {
     public function up()
     {
-        Schema::create('instruments', function (Blueprint $table) {
+        Schema::create('equipment', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('location');
             $table->integer('quantity');
+            $table->date('expire_date');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('instruments');
+        Schema::dropIfExists('equipment');
     }
 }

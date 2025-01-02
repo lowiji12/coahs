@@ -8,52 +8,71 @@ use App\Models\Instrument;
 
 class InstrumentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $instruments = Instrument::all();
-        return view('admin.instrument.inventory-instruments', compact('instruments'));
+        $search = $request->input('search');
+        $instruments = Instrument::when($search, function ($query) use ($search) {
+            return $query->where('name', 'like', "%$search%")
+                         ->orWhere('location', 'like', "%$search%");
+        })->get();
+
+        return view('admin.instruments.index', compact('instruments', 'search'));
     }
 
     public function create()
     {
-        return view('admin.instrument.create-instrument');
+        return view('admin.instruments.create');
     }
 
     public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required',
+        'location' => 'required',
+        'quantity' => 'required|integer',
+    ]);
+
+    // Check if an instrument with the same name, location, and quantity exists
+    $instrument = Instrument::where('name', $request->name)
+                            ->where('location', $request->location)
+                            ->first();
+
+    if ($instrument) {
+        // Update the existing instrument's quantity
+        $instrument->quantity += $request->quantity;
+        $instrument->save();
+
+        return redirect()->route('admin.instruments.index')->with('success', 'Instrument quantity updated successfully.');
+    }
+
+    // Create a new instrument record
+    Instrument::create($request->all());
+
+    return redirect()->route('admin.instruments.index')->with('success', 'Instrument added successfully.');
+}
+
+    public function edit($id)
+    {
+        $instrument = Instrument::findOrFail($id);
+        return view('admin.instruments.edit', compact('instrument'));
+    }
+
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
+            'name' => 'required',
+            'location' => 'required',
             'quantity' => 'required|integer',
         ]);
 
-        Instrument::create($request->all());
-
-        return redirect()->route('admin.instruments.index')->with('success', 'Instrument added successfully.');
-    }
-
-    public function edit(Instrument $instrument)
-    {
-        return view('admin.instrument.edit-instrument', compact('instrument'));
-    }
-
-    public function update(Request $request, Instrument $instrument)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'quantity' => 'required|integer',
-        ]);
-
+        $instrument = Instrument::findOrFail($id);
         $instrument->update($request->all());
-
         return redirect()->route('admin.instruments.index')->with('success', 'Instrument updated successfully.');
     }
 
-    public function destroy(Instrument $instrument)
+    public function destroy($id)
     {
-        $instrument->delete();
-
+        Instrument::destroy($id);
         return redirect()->route('admin.instruments.index')->with('success', 'Instrument deleted successfully.');
     }
 }

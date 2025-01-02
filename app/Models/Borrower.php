@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Medicine extends Model
+class Borrower extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'generic_name', 'brand_name', 'dose', 'form', 'expired_date', 'stock', 'location',
+        'first_name', 'last_name', 'course', 'year_level', 'category', 'borrowed_item', 'borrowed_date', 'quantity_borrowed'
     ];
 }
-
-

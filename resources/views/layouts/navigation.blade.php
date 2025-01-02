@@ -34,9 +34,12 @@
 
                     <!-- Dropdown Menu (Appears on hover) -->
                     <div x-show="open" class="absolute bg-white border border-gray-100 shadow-lg rounded-md mt-2 py-1 w-48 z-10">
-                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="#">{{ __('Equipment') }}</a>
-                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="#">{{ __('Supplies') }}</a>
-                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="#">{{ __('Instruments') }}</a>
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="chemicals">{{ __('Chemicals') }}</a>
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="equipment">{{ __('Equipments') }}</a>
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="instruments">{{ __('Instruments') }}</a>
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="medicines">{{ __('Medicines') }}</a>
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="supplies">{{ __('Supplies') }}</a>
+                        <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" href="borrowers">{{ __('Borrowers') }}</a>
                     </div>
                 </div>                
 

@@ -9,5 +9,9 @@ class Instrument extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'location', 'quantity'];
+    protected $fillable = [
+        'name',
+        'location',
+        'quantity',
+    ];
 }

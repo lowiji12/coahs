@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\ChemicalController;
 use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Admin\InstrumentController;
 use App\Http\Controllers\Admin\MedicineController;
+use App\Http\Controllers\Admin\SupplyController;
+use App\Http\Controllers\Admin\BorrowerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,17 +43,58 @@ Route::post('/import/save', [StudentInformationController::class, 'saveConfirmed
 Route::post('/remove-student', [StudentInformationController::class, 'removeStudent'])->name('remove.student');
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('medicines', MedicineController::class);
+    Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.index');
+    Route::get('/medicines/create', [MedicineController::class, 'create'])->name('medicines.create');
+    Route::get('/medicines/edit/{id}', [MedicineController::class, 'edit'])->name('medicines.edit');
+    Route::get('/medicines/delete/{id}/destroy', [MedicineController::class, 'destroy'])->name('medicines.destroy');
+    Route::delete('medicines/delete/{id}/destroy', [MedicineController::class, 'destroy'])->name('medicines.delete');
+    Route::post('/medicines/store', [MedicineController::class, 'store'])->name('medicines.store');
+    Route::post('/medicines/update/{id}', [MedicineController::class, 'update'])->name('medicines.update');
 });
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('instruments', InstrumentController::class);
+    Route::get('instruments', [InstrumentController::class, 'index'])->name('instruments.index');
+    Route::get('instruments/create', [InstrumentController::class, 'create'])->name('instruments.create');
+    Route::post('instruments', [InstrumentController::class, 'store'])->name('instruments.store');
+    Route::get('instruments/{id}/edit', [InstrumentController::class, 'edit'])->name('instruments.edit');
+    Route::put('instruments/{id}', [InstrumentController::class, 'update'])->name('instruments.update');
+    Route::get('instruments/{id}/destroy', [InstrumentController::class, 'destroy'])->name('instruments.destroy');
+
 });
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('equipments', EquipmentController::class);
+    Route::get('equipment', [EquipmentController::class, 'index'])->name('equipment.index');
+    Route::get('equipment/create', [EquipmentController::class, 'create'])->name('equipment.create');
+    Route::post('equipment/store', [EquipmentController::class, 'store'])->name('equipment.store');
+    Route::get('equipment/{id}/edit', [EquipmentController::class, 'edit'])->name('equipment.edit');
+    Route::put('equipment/{id}/update', [EquipmentController::class, 'update'])->name('equipment.update');
+    Route::get('equipment/{id}/destroy', [EquipmentController::class, 'destroy'])->name('equipment.destroy');
+
 });
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('chemicals', ChemicalController::class);
-    
+    Route::get('chemicals', [ChemicalController::class, 'index'])->name('chemicals.index');
+    Route::get('chemicals/create', [ChemicalController::class, 'create'])->name('chemicals.create');
+    Route::post('chemicals/store', [ChemicalController::class, 'store'])->name('chemicals.store');
+    Route::get('chemicals/{id}/edit', [ChemicalController::class, 'edit'])->name('chemicals.edit');
+    Route::post('chemicals/{id}/update', [ChemicalController::class, 'update'])->name('chemicals.update');
+    Route::get('chemicals/{id}/delete', [ChemicalController::class, 'delete'])->name('chemicals.delete');
+});
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('supplies', [SupplyController::class, 'index'])->name('supplies.index');
+    Route::get('supplies/create', [SupplyController::class, 'create'])->name('supplies.create');
+    Route::get('supplies/store', [SupplyController::class, 'store'])->name('supplies.store');
+    Route::get('supplies/edit/{id}', [SupplyController::class, 'edit'])->name('supplies.edit');
+    Route::get('supplies/update/{id}', [SupplyController::class, 'update'])->name('supplies.update');
+    Route::get('supplies/destroy/{id}/destroy', [SupplyController::class, 'destroy'])->name('supplies.destroy');
+    Route::get('supplies/search', [SupplyController::class, 'search'])->name('supplies.search');
+});
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/borrowers', [BorrowerController::class, 'index'])->name('borrowers.index');
+    Route::get('/borrowers/create', [BorrowerController::class, 'create'])->name('borrowers.create');
+    Route::get('/borrowers/store', [BorrowerController::class, 'store'])->name('borrowers.store');
+    Route::get('/borrowers/edit/{id}', [BorrowerController::class, 'edit'])->name('borrowers.edit');
+    Route::get('/borrowers/update/{id}', [BorrowerController::class, 'update'])->name('borrowers.update');
+    Route::get('/borrowers/delete/{id}', [BorrowerController::class, 'destroy'])->name('borrowers.destroy');
+    Route::delete('borrowers/delete/{id}', [BorrowerController::class, 'destroy'])->name('borrowers.delete');
 });
 
 Route::get('/admin/student/information', [StudentInformationController::class, 'student'])->name('admin.student.information');

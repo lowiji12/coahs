@@ -64,12 +64,16 @@
                         <ul class="sidebar-submenu">
                             <li><a href="{{ route('admin.chemicals.index') }}" class="sidebar-submenu-link"><i
                                         class="fas fa-flask"></i><span> Chemicals</span></a></li>
-                            <li><a href="{{ route('admin.equipments.index') }}" class="sidebar-submenu-link"><i
+                            <li><a href="{{ route('admin.equipment.index') }}" class="sidebar-submenu-link"><i
                                         class="fas fa-tools"></i><span> Equipments</span></a></li>
                             <li><a href="{{ route('admin.instruments.index') }}" class="sidebar-submenu-link"><i
                                         class="fas fa-microscope"></i><span> Instruments</span></a></li>
                             <li><a href="{{ route('admin.medicines.index') }}" class="sidebar-submenu-link"><i
                                         class="fas fa-pills"></i><span> Medicines</span></a></li>
+                            <li><a href="{{ route('admin.supplies.index') }}" class="sidebar-submenu-link"><i
+                                        class="fas fa-syringe"></i><span> Supplies</span></a></li>
+                            <li><a href="{{ route('admin.borrowers.index') }}" class="sidebar-submenu-link"><i
+                                        class="fas fa-wrench"></i><span> Borrowers</span></a></li>
                         </ul>
                     </li>
                     <li class="sidebar-nav-item">

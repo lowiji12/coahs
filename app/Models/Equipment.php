@@ -9,14 +9,5 @@ class Equipment extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'location',
-        'quantity',
-    ];
+    protected $fillable = ['name', 'location', 'quantity', 'expire_date'];
 }
